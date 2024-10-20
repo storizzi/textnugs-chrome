@@ -5,16 +5,21 @@
 <td>TextNugs is a Chrome extension that allows you to store and insert commonly used scripts or text snippets into web pages. It provides a convenient way to manage your scripts and quickly insert them into browser pages, targeted to different web sites or text edit fields on the page if needed.</td></tr>
 </table>
 
+- [Releases](./releases//RELEASE.md)
+
 <table>
   <tr>
-    <td width="33%">
-      <img src="./img/textnugs-add-screenshot.png" alt="Image 1" width="300px">
+    <td width="25%">
+      <img src="./img/textnugs-add-screenshot.png" alt="Add Screenshot" width="200px">
     </td>
-    <td width="33%">
-      <img src="./img/textnugs-hover-screenshot.png" alt="Image 2" width="300px">
+    <td width="25%">
+      <img src="./img/textnugs-hover-screenshot.png" alt="Hover Screenshot" width="200px">
     </td>
-    <td width="33%">
-      <img src="./img/textnugs-edit-screenshot.png" alt="Image 3" width="300px">
+    <td width="25%">
+      <img src="./img/textnugs-edit-screenshot.png" alt="Edit screenshot" width="200px">
+    </td>
+        <td width="25%">
+      <img src="./img/textnugs-settings-screenshot.png" alt="Settings Screenshot" width="200px">
     </td>
   </tr>
 </table>
@@ -34,6 +39,7 @@
   - **Restore**: Replace all current scripts with a previous backup.
   - **Import**: Merge scripts from a backup into your current set.
   - **Clear All Scripts**: Remove all stored scripts (useful for GDPR compliance).
+  - **Restore / Import from File or URL** - You can either specify a local file on your computer, or you can specify a URL if you or someone else have put a collection of snippets on an internet site somewhere that is accessible to your browser. Exercise caution and ensure you trust the source of the file to make sure someone does not provide a malicious file.
 - Clickable popover for menu items so you can use snippets for quick references, or quickly copy bits of the snippet
 
 ## Installation
@@ -107,6 +113,9 @@
 The **Backup** feature allows you to save all your scripts and settings to a JSON file for safekeeping. You can use this to create backups, share scripts between devices or colleagues, or store different collections of scripts for various use cases.
 
 - Click the **Backup** button to download a file named `paste-hoarder-<timestamp>.json`.
+- Alternatively, type A URL from which you can download a set of snippets / scripts - make sure you trust this source. E.g. some sample collections in the repository are:
+  - `https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/javascript-snippets.json`
+  - `https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/llm-snippets.json`
 - The file contains metadata, settings, and all stored scripts.
 
 ### Restore

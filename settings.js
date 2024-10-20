@@ -1,8 +1,28 @@
-// Enable/Disable Restore and Import buttons based on file selection
-document.getElementById('import-file').addEventListener('change', (event) => {
+// Get DOM elements
+const importFileInput = document.getElementById('import-file');
+const importUrlInput = document.getElementById('import-url');
+const restoreButton = document.getElementById('restore-button');
+const importButton = document.getElementById('import-button');
+
+// Enable/Disable Restore and Import buttons based on file selection or URL
+importFileInput.addEventListener('change', (event) => {
     const selectedFile = event.target.files[0];
-    document.getElementById('restore-button').disabled = !selectedFile;
-    document.getElementById('import-button').disabled = !selectedFile;
+    if (selectedFile) {
+        restoreButton.disabled = false;
+        importButton.disabled = false;
+    }
+});
+
+importUrlInput.addEventListener('input', (event) => {
+    const url = event.target.value.trim();
+    const isUrlValid = url.length > 0;
+    
+    // Disable the file input if there's text in the URL box, enable if empty
+    importFileInput.disabled = isUrlValid;
+
+    // Enable buttons only if there's a valid URL or a file is selected
+    restoreButton.disabled = !isUrlValid && !importFileInput.files[0];
+    importButton.disabled = !isUrlValid && !importFileInput.files[0];
 });
 
 // Backup functionality - Exports current scripts to a JSON file
@@ -58,59 +78,74 @@ document.getElementById('clear-scripts-button').addEventListener('click', () => 
     }
 });
 
-// Restore button logic
-document.getElementById('restore-button').addEventListener('click', () => {
-    const file = document.getElementById('import-file').files[0];
-    if (file) {
-        showConfirmationDialog('restore');
+// Restore button logic (for URL or file)
+restoreButton.addEventListener('click', () => {
+    const url = importUrlInput.value.trim();
+    if (url) {
+        fetchFileFromUrl(url, 'restore');
+    } else {
+        processFile('restore');
     }
 });
 
-// Import button logic
-document.getElementById('import-button').addEventListener('click', () => {
-    const file = document.getElementById('import-file').files[0];
-    if (file) {
-        showConfirmationDialog('import');
+// Import button logic (for URL or file)
+importButton.addEventListener('click', () => {
+    const url = importUrlInput.value.trim();
+    if (url) {
+        fetchFileFromUrl(url, 'import');
+    } else {
+        processFile('import');
     }
 });
 
-// Confirmation dialog for restore and import actions
-function showConfirmationDialog(actionType) {
-    const confirmationMessage = actionType === 'restore'
-        ? 'Are you sure you want to restore and replace all scripts? This action will overwrite all existing data.'
-        : 'Are you sure you want to import and merge the scripts with your existing ones?';
+// Fetch file from a URL and process it
+function fetchFileFromUrl(url, actionType) {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            validateAndProcessJson(data, actionType);
+        })
+        .catch(error => {
+            alert('Failed to fetch file from URL: ' + error.message);
+        });
+}
 
-    if (confirm(confirmationMessage)) {
-        processFile(actionType);
+// Validate JSON structure and process it
+function validateAndProcessJson(data, actionType) {
+    if (data.metadata && data.settings && data.scripts) {
+        if (actionType === 'restore') {
+            chrome.storage.local.set({ scripts: data.scripts }, () => {
+                alert('Scripts restored successfully.');
+                updateStatistics(); // Update statistics after restore
+            });
+        } else if (actionType === 'import') {
+            chrome.storage.local.get(['scripts'], (result) => {
+                const existingScripts = result.scripts || [];
+                const mergedScripts = [...existingScripts, ...data.scripts];
+                chrome.storage.local.set({ scripts: mergedScripts }, () => {
+                    alert('Scripts imported successfully.');
+                    updateStatistics(); // Update statistics after import
+                });
+            });
+        }
+    } else {
+        alert('Invalid file structure.');
     }
 }
 
-// Process file for restore or import actions
+// Process file for restore or import actions from file picker
 function processFile(actionType) {
-    const file = document.getElementById('import-file').files[0];
+    const file = importFileInput.files[0];
     const reader = new FileReader();
     reader.onload = function (e) {
         try {
             const data = JSON.parse(e.target.result);
-            if (data.metadata && data.settings && data.scripts) {
-                if (actionType === 'restore') {
-                    chrome.storage.local.set({ scripts: data.scripts }, () => {
-                        alert('Scripts restored successfully.');
-                        updateStatistics(); // Update statistics after restore
-                    });
-                } else if (actionType === 'import') {
-                    chrome.storage.local.get(['scripts'], (result) => {
-                        const existingScripts = result.scripts || [];
-                        const mergedScripts = [...existingScripts, ...data.scripts];
-                        chrome.storage.local.set({ scripts: mergedScripts }, () => {
-                            alert('Scripts imported successfully.');
-                            updateStatistics(); // Update statistics after import
-                        });
-                    });
-                }
-            } else {
-                alert('Invalid file structure.');
-            }
+            validateAndProcessJson(data, actionType);
         } catch (err) {
             alert('Error reading file: ' + err.message);
         }

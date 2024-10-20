@@ -97,9 +97,18 @@
   </div>
 
   <!-- File Picker Section for Import/Restore -->
+   
+  <!-- URL Input Section -->
   <div class="file-picker-section">
     <h2 class="section-heading">Import / Restore</h2>
+    
+    <!-- New URL Input -->
+    <label for="import-url">Import from URL:</label>
+    <input type="text" id="import-url" placeholder="Enter URL here" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+    
+    <!-- Existing file input -->
     <input type="file" id="import-file" accept=".json">
+    
     <div class="button-container">
       <button id="restore-button" disabled>Restore</button>
       <button id="import-button" disabled>Import</button>

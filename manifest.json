@@ -1,10 +1,13 @@
 {
     "manifest_version": 3,
     "name": "TextNugs",
-    "version": "1.0",
-    "description": "Store and insert commonly used scripts.",
+    "version": "1.1",
+    "description": "Store and insert commonly used text snippets.",
     "permissions": ["activeTab", "scripting", "storage", "tabs", "clipboardRead", "clipboardWrite", "contextMenus"],
     "host_permissions": ["<all_urls>"],
+    "background": {
+      "service_worker": "background.js"
+    },
     "action": {
       "default_popup": "popup.html",
       "default_icon": {
