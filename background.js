@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener((details) => {
     if (details.reason === "update") {
         const currentVersion = getCurrentVersion();  // Your logic to get version
-        const releaseUrl = `https://github.com/storizzi/textnugs-chrome/releases/release-${currentVersion}.md`;
+        const releaseUrl = `https://github.com/storizzi/textnugs-chrome/tree/main/releases/release-${currentVersion}.md`;
 
         // Use fetch to check the URL before opening
         checkReleasePage(releaseUrl);
