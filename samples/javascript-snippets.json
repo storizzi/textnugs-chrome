@@ -1,0 +1,98 @@
+{
+    "metadata": {
+      "browser_type": "Google Chrome",
+      "browser_version": "129",
+      "date_exported": "2024-10-11T14:50:45.072Z",
+      "app": {
+        "name": "Paste Hoarder",
+        "version": "1.0",
+        "description": "Store and insert commonly used scripts.",
+        "permissions": [
+          "activeTab",
+          "scripting",
+          "storage",
+          "tabs",
+          "clipboardRead",
+          "clipboardWrite",
+          "contextMenus"
+        ],
+        "host_permissions": [
+          "<all_urls>"
+        ]
+      }
+    },
+    "settings": {},
+    "scripts": [
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "function fetchData(url) {\n  return fetch(url)\n    .then(response => response.json())\n    .catch(error => console.error('Error fetching data:', error));\n}",
+        "title": "Fetch Data from API"
+      },
+      {
+        "insertionMethod": "direct",
+        "selector": "*",
+        "site": "*",
+        "text": "const debounce = (func, delay) => {\n  let timeoutId;\n  return (...args) => {\n    clearTimeout(timeoutId);\n    timeoutId = setTimeout(() => func.apply(null, args), delay);\n  };\n};",
+        "title": "Debounce Function"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "const throttle = (func, limit) => {\n  let inThrottle;\n  return (...args) => {\n    if (!inThrottle) {\n      func.apply(null, args);\n      inThrottle = true;\n      setTimeout(() => inThrottle = false, limit);\n    }\n  };\n};",
+        "title": "Throttle Function"
+      },
+      {
+        "insertionMethod": "direct",
+        "selector": "*",
+        "site": "*",
+        "text": "const deepClone = obj => JSON.parse(JSON.stringify(obj));",
+        "title": "Deep Clone Object"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);",
+        "title": "Capitalize String"
+      },
+      {
+        "insertionMethod": "direct",
+        "selector": "*",
+        "site": "*",
+        "text": "const isEmpty = obj => Object.keys(obj).length === 0;",
+        "title": "Check if Object is Empty"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "const getQueryParams = url => {\n  const params = new URLSearchParams(new URL(url).search);\n  return Object.fromEntries(params.entries());\n};",
+        "title": "Extract Query Params"
+      },
+      {
+        "insertionMethod": "direct",
+        "selector": "*",
+        "site": "*",
+        "text": "const randomHexColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16);",
+        "title": "Generate Random Hex Color"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "const sumArray = arr => arr.reduce((acc, val) => acc + val, 0);",
+        "title": "Sum Array of Numbers"
+      },
+      {
+        "insertionMethod": "direct",
+        "selector": "*",
+        "site": "*",
+        "text": "const removeDuplicates = arr => [...new Set(arr)];",
+        "title": "Remove Duplicates from Array"
+      }
+    ]
+  }
+  

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: #fff7e6;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .container {
+      padding: 20px;
+      box-sizing: border-box;
+      height: 100%;
+    }
+    h1 {
+      color: #e68900;
+      margin-top: 0;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #e68900;
+    }
+    
+    input[type="text"], select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ffcc80;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+      height: 40px; /* Explicit height */
+    }
+    
+    .input-group {
+      display: flex;
+      align-items: flex-start; /* Align items at the start (top) */
+      margin-top: 5px;
+    }
+    
+    .input-group input[type="text"] {
+      flex-grow: 1;
+      padding: 8px;
+      border: 1px solid #ffcc80;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+      height: 40px; /* Match button height */
+    }
+    
+    .input-group button.star-button {
+      background-color: #ff9800;
+      color: white;
+      border: 1px solid #ffcc80;
+      padding: 0 12px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+      height: 40px; /* Match input height */
+      margin-top: 5px; /* Add margin to align with the input */
+      margin-left: 2px; /* Add small gap between input and button */
+      display: flex;
+      align-items: center; /* Center star vertically */
+      justify-content: center;
+    }
+    
+    .input-group button.star-button:hover {
+      background-color: #e68900;
+    }
+
+    textarea {
+      resize: vertical;
+      margin-top: 5px;
+      padding: 8px;
+      border: 1px solid #ffcc80;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 20px;
+      margin-right: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #e68900;
+    }
+
+    #cancel-button {
+      background-color: #bdbdbd;
+    }
+
+    #cancel-button:hover {
+      background-color: #9e9e9e;
+    }
+
+    .button-container {
+      margin-top: 20px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Add New Script</h1>
+    <form id="add-form">
+      <label for="title">Title (required):</label>
+      <input type="text" id="title" required>
+
+      <label for="site">Site (optional):</label>
+      <div class="input-group">
+        <input type="text" id="site">
+        <button type="button" class="star-button" id="site-star-button">&#9733;</button>
+      </div>
+
+      <label for="selector">Selector (optional):</label>
+      <div class="input-group">
+        <input type="text" id="selector">
+        <button type="button" class="star-button" id="selector-star-button">&#9733;</button>
+      </div>
+
+      <label for="insertion-method">Insertion Method:</label>
+      <select id="insertion-method">
+        <option value="direct">Direct Insertion</option>
+        <option value="clipboard" selected>Copy to Clipboard</option>
+      </select>
+
+      <label for="script-text">Script Text:</label>
+      <textarea id="script-text" rows="10"></textarea>
+
+      <div class="button-container">
+        <button type="submit">Add</button>
+        <button id="cancel-button" type="button">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <script src="add_dialog.js"></script>
+</body>
+</html>

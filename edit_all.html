@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: #fff7e6;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .container {
+      padding: 20px;
+      box-sizing: border-box;
+      height: 100%;
+      overflow: auto;
+    }
+    h1 {
+      color: #e68900;
+      margin-top: 0;
+    }
+    .script-list {
+      margin-bottom: 20px;
+    }
+    .script-item {
+      background-color: #fff2e0;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ffcc80;
+      border-radius: 4px;
+    }
+    .script-item h3 {
+      margin: 0;
+      cursor: pointer;
+      color: #e68900;
+    }
+    .script-item.open h3 {
+      background-color: #e68900; /* Deep orange background */
+      color: white; /* White text */
+      border-radius: 4px; /* Optional rounding for better appearance */
+    }
+    .script-item .script-content {
+      display: none;
+      margin-top: 10px;
+    }
+    .script-item.open .script-content {
+      display: block;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #e68900;
+    }
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ffcc80;
+      border-radius: 4px;
+      resize: vertical;
+      box-sizing: border-box;
+      font-size: 14px;
+      height: 36px;
+    }
+
+    /* Input Group for Buttons Next to Inputs */
+    .input-group {
+      display: flex;
+      margin-top: 5px;
+    }
+    .input-group input[type="text"] {
+      flex-grow: 1;
+      padding: 8px;
+      border: 1px solid #ffcc80;
+      border-radius: 4px 0 0 4px;
+      box-sizing: border-box;
+      height: 36px;
+    }
+
+    /* Star button style */
+    .input-group button.star-button {
+      background-color: #ff9800;
+      color: white;
+      border: 1px solid #ffcc80;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 0;
+      padding: 0 12px;
+      height: 36px;
+      margin-top: 5px; /* Align button with input */
+      margin-left: 2px; /* Small gap between input and button */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .input-group button.star-button:hover {
+      background-color: #e68900;
+    }
+
+    /* Refresh button style */
+    .input-group button.refresh-button {
+      background-color: #ff9800;
+      color: white;
+      border: 1px solid #ffcc80;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 0 4px 4px 0;
+      padding: 0 12px;
+      height: 36px;
+      margin-top: 5px; /* Align button with input */
+      margin-left: 2px; /* Small gap between the star and refresh button */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .input-group button.refresh-button:hover {
+      background-color: #e68900;
+    }
+
+    /* Adjusted button styles */
+    button {
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      margin-top: 20px;
+      margin-right: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #e68900;
+    }
+
+    #cancel-button {
+      background-color: #bdbdbd;
+    }
+
+    #cancel-button:hover {
+      background-color: #9e9e9e;
+    }
+
+    .button-container {
+      margin-top: 20px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Edit All Scripts</h1>
+    <div class="script-list" id="script-list">
+      <!-- Scripts will be dynamically populated here -->
+    </div>
+    <div class="button-container">
+        <button id="update-button">Update</button>
+        <button id="cancel-button">Cancel</button>
+      </div>
+    </div>
+
+  <script src="edit_all.js"></script>
+</body>
+</html>

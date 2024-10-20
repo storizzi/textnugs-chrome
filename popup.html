@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    /* Container for the main popup, including buttons */
+    body {
+      background-color: #fff7e6;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 10px;
+      width: 300px;
+    }
+
+    button {
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      margin: 5px 0;
+      cursor: pointer;
+      width: 100%;
+      font-size: 14px;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    button:hover {
+      background-color: #e68900;
+    }
+
+    #script-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    #script-list li {
+      background-color: #fff2e0;
+      padding: 8px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      color: #e68900;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #script-list li:hover {
+      background-color: #ffe0b2;
+    }
+
+    .hover-preview {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 10px;
+      border-radius: 4px;
+      opacity: 0;
+      z-index: 1000;
+      white-space: pre-wrap;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      max-width: 250px;
+      max-height: 100px;
+      overflow: hidden;
+      transform: translateY(10px);
+      backdrop-filter: blur(5px);
+    }
+
+    .hover-visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .hover-focused {
+      border: 3px solid orange;
+      overflow-y: auto;
+      pointer-events: auto;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #e68900;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <button id="add-button">Add...</button>
+  <button id="edit-button">Edit All</button>
+  <button id="settings-button">Settings</button>
+  <hr>
+  <ul id="script-list"></ul>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    body {
+      background-color: #fff7e6;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* Main Header Style */
+    h1 {
+      color: #e68900;
+      margin-bottom: 10px;
+    }
+
+    /* Section Heading Style (same as h1 color) */
+    .section-heading {
+      color: #e68900;
+    }
+
+    /* Button Styling */
+    button {
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 10px;
+      margin-right: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #e68900;
+    }
+
+    /* Cancel Button Styling */
+    #cancel-button {
+      background-color: #bdbdbd;
+    }
+
+    #cancel-button:hover {
+      background-color: #9e9e9e;
+    }
+
+    /* Button Container Styling */
+    .button-container {
+      margin-top: 10px;
+      text-align: right;
+    }
+
+    /* File Picker Section Styling */
+    .file-picker-section {
+      border: 1px solid #ffcc80;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      background-color: #fff2e0;
+    }
+
+    /* Input File Styling */
+    input[type="file"] {
+      display: block;
+      margin: 10px 0;
+    }
+
+    /* Divider Styling */
+    .divider {
+      margin-top: 20px;
+      border: 1px solid #ffcc80;
+    }
+
+    /* Statistics Section Styling */
+    #stats p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    /* Disabled Button Styling */
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main Header -->
+  <h1>Settings</h1>
+
+  <!-- Main Buttons for Backup and Clear Scripts -->
+  <div class="button-container">
+    <button id="backup-button">Backup</button>
+    <button id="clear-scripts-button">Clear All Scripts</button>
+  </div>
+
+  <!-- File Picker Section for Import/Restore -->
+  <div class="file-picker-section">
+    <h2 class="section-heading">Import / Restore</h2>
+    <input type="file" id="import-file" accept=".json">
+    <div class="button-container">
+      <button id="restore-button" disabled>Restore</button>
+      <button id="import-button" disabled>Import</button>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <hr class="divider">
+
+  <!-- Statistics Section -->
+  <h2 class="section-heading">Statistics</h2>
+  <div id="stats">
+    <p><strong>Number of Scripts:</strong> <span id="script-count">0</span></p>
+    <p><strong>Size of Scripts Storage:</strong> <span id="storage-size">0 KB</span></p>
+    <p><strong>Space Left:</strong> <span id="space-left">0 KB</span></p>
+    <p><strong>Approximate Scripts Remaining:</strong> <span id="scripts-remaining">0</span></p>
+  </div>
+
+  <!-- Confirmation Dialog -->
+  <div id="confirmation-dialog" style="display:none;">
+    <p>Are you sure you want to proceed? This action cannot be undone.</p>
+    <button id="confirm-button">Yes</button>
+    <button id="cancel-confirm-button">No</button>
+  </div>
+
+  <!-- Link to JS -->
+  <script src="settings.js"></script>
+</body>
+</html>

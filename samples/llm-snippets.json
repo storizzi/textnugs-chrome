@@ -1,0 +1,97 @@
+{
+  "metadata": {
+    "browser_type": "Google Chrome",
+    "browser_version": "129",
+    "date_exported": "2024-10-11T15:20:45.072Z",
+    "app": {
+      "name": "Paste Hoarder",
+      "version": "1.0",
+      "description": "Store and insert commonly used scripts.",
+      "permissions": [
+        "activeTab",
+        "scripting",
+        "storage",
+        "tabs",
+        "clipboardRead",
+        "clipboardWrite",
+        "contextMenus"
+      ],
+      "host_permissions": [
+        "<all_urls>"
+      ]
+    }
+  },
+  "settings": {},
+  "scripts": [
+    {
+      "insertionMethod": "clipboard",
+      "selector": "div#prompt-textarea",
+      "site": "chatgpt.com",
+      "text": "Can you create a weekly meal plan for a family of four, keeping the budget under $100 and focusing on healthy, balanced meals?",
+      "title": "Weekly Meal Plan for Family"
+    },
+    {
+      "insertionMethod": "direct",
+      "selector": "div#prompt-textarea",
+      "site": "chatgpt.com",
+      "text": "Please summarize this long text into a concise, one-paragraph summary: {{clipboard}}",
+      "title": "Summarize Long Text"
+    },
+    {
+      "insertionMethod": "clipboard",
+      "selector": "div#prompt-textarea",
+      "site": "chatgpt.com",
+      "text": "I need help creating a budget for household expenses. Can you list the typical categories and suggest average percentages for each category?",
+      "title": "Create Household Budget"
+    },
+    {
+      "insertionMethod": "direct",
+      "selector": "div#prompt-textarea",
+      "site": "chatgpt.com",
+      "text": "Generate a random but interesting prompt for a JavaScript coding project for beginners.",
+      "title": "JS Coding Project Idea"
+    },
+    {
+      "insertionMethod": "clipboard",
+      "selector": "div#prompt-textarea",
+      "site": "chatgpt.com",
+      "text": "Write an email template for requesting vacation days at work, emphasizing the importance of early notice and covering any responsibilities during the absence.",
+      "title": "Request Vacation Email Template"
+    },
+    {
+      "insertionMethod": "direct",
+      "selector": "div#prompt-textarea",
+      "site": "chatgpt.com",
+      "text": "Help me create a list of goals for personal development that I can work on over the next six months.",
+      "title": "Personal Development Goals"
+    },
+    {
+      "insertionMethod": "clipboard",
+      "selector": "div#prompt-textarea",
+      "site": "chatgpt.com",
+      "text": "Suggest a list of easy, healthy snacks I can prepare quickly at home, preferably with ingredients that last a while in the pantry.",
+      "title": "Healthy Snack Ideas"
+    },
+    {
+      "insertionMethod": "direct",
+      "selector": "div#prompt-textarea",
+      "site": "chatgpt.com",
+      "text": "Create a simple project management plan for tracking office tasks, setting deadlines, and assigning priorities to team members.",
+      "title": "Project Management Plan"
+    },
+    {
+      "insertionMethod": "clipboard",
+      "selector": "div#prompt-textarea",
+      "site": "chatgpt.com",
+      "text": "Can you draft a polite but firm email response declining a meeting invitation that conflicts with my schedule, suggesting alternative times?",
+      "title": "Decline Meeting Invite Email"
+    },
+    {
+      "insertionMethod": "direct",
+      "selector": "div#prompt-textarea",
+      "site": "chatgpt.com",
+      "text": "Provide a list of best practices for organizing code comments and documentation for a team development project.",
+      "title": "Best Practices for Code Documentation"
+    }
+  ]
+}
