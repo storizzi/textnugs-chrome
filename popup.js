@@ -123,7 +123,7 @@ document.getElementById('settings-button').addEventListener('click', () => {
     // Get current window dimensions to center the popup
     chrome.windows.getCurrent((currentWindow) => {
         const width = 400;
-        const height = 400;
+        const height = 580;
         const left = Math.round((currentWindow.width - width) / 2 + currentWindow.left);
         const top = Math.round((currentWindow.height - height) / 2 + currentWindow.top);
 
