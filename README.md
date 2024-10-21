@@ -1,7 +1,7 @@
 # TextNugs Text snippets Chrome Extension
 
-<table><tr><td width = "100px">
-<img src="./icons/textnugs256.png" alt="TextNugs" width="100px" height="100px"></td>
+<table><tr><td width = "200px">
+<img src="./img/textnugs.png" alt="TextNugs" width="200px" height="200px"></td>
 <td>TextNugs is a Chrome extension that allows you to store and insert commonly used scripts or text snippets into web pages. It provides a convenient way to manage your scripts and quickly insert them into browser pages, targeted to different web sites or text edit fields on the page if needed.</td></tr>
 </table>
 
