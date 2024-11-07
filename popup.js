@@ -168,8 +168,26 @@ function createHoverPreview(script, listItem) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const scripts = await getMatchingScripts();
     const list = document.getElementById('script-list');
+    const siteFilterCheckbox = document.getElementById('site-filter');
+    const searchBox = document.getElementById('search-box');
+
+    // Load the Site Filter setting from storage and set the checkbox
+    chrome.storage.local.get(['siteFilterEnabled'], (result) => {
+        siteFilterCheckbox.checked = result.siteFilterEnabled !== false; // default to true if undefined
+        displayScripts();
+    });
+
+    // Save the Site Filter setting to storage when the checkbox is toggled
+    siteFilterCheckbox.addEventListener('change', () => {
+        chrome.storage.local.set({ siteFilterEnabled: siteFilterCheckbox.checked });
+        displayScripts(); // Refresh the displayed items based on the updated setting
+    });
+    
+    // Refresh displayed items on search query input
+    searchBox.addEventListener('input', () => {
+        displayScripts();
+    });
 
     // Create the hover preview div outside the list
     const hoverPreview = document.createElement('div');
@@ -184,24 +202,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     let isHoverBoxFocused = false;
     let isInteractionLocked = false; // New flag to disable other menu item events
 
-// Function to show the hover preview
-function showHoverPreview(text, rect) {
-    if (isInteractionLocked) return; // Do nothing if interactions are locked
+    // Function to show the hover preview
+    function showHoverPreview(text, rect) {
+        if (isInteractionLocked) return; // Do nothing if interactions are locked
 
-    hoverPreview.textContent = text;
+        hoverPreview.textContent = text;
 
-    // Get the bounding client rect of the list item
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+        // Get the bounding client rect of the list item
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
 
-    // Adjust the hover preview's position relative to the document's scroll position
-    hoverPreview.style.left = `${rect.left + scrollLeft + 30}px`; // Move to the right a bit more
-    hoverPreview.style.top = `${rect.top + scrollTop - hoverPreview.offsetHeight + 5}px`; // Slightly overlap the menu item
-    hoverPreview.classList.add('hover-visible');
-    hoverPreview.style.border = 'none'; // Reset border when not focused
+        // Adjust the hover preview's position relative to the document's scroll position
+        hoverPreview.style.left = `${rect.left + scrollLeft + 30}px`; // Move to the right a bit more
+        hoverPreview.style.top = `${rect.top + scrollTop - hoverPreview.offsetHeight + 5}px`; // Slightly overlap the menu item
+        hoverPreview.classList.add('hover-visible');
+        hoverPreview.style.border = 'none'; // Reset border when not focused
 
-    clearTimeout(hoverTimeout); // Clear any existing timeout to prevent hiding immediately
-}
+        clearTimeout(hoverTimeout); // Clear any existing timeout to prevent hiding immediately
+    }
 
 
     // Function to hide the hover preview
@@ -211,118 +229,159 @@ function showHoverPreview(text, rect) {
         }
     }
 
-    // Updated event listeners for hover behavior on menu items
-scripts.forEach(script => {
-    const listItem = document.createElement('li');
-    listItem.textContent = script.title;
+    // Load and display scripts
+    async function displayScripts() {
+        const searchQuery = searchBox.value.toLowerCase().trim();
+        const scripts = await getMatchingScripts(searchQuery);
+        
+        list.innerHTML = ''
+        scripts.forEach(script => {
 
-    listItem.addEventListener('click', () => {
-        const insertionMethod = script.insertionMethod || 'direct';
-        insertScript(script.text, script.selector, insertionMethod);
-    });
+            let scriptTitle = script.title;
+            let isTitle = false
 
-    // Add hover event listeners to display the preview
-    listItem.addEventListener('mouseenter', (event) => {
-        if (isInteractionLocked) return; // Do nothing if interactions are locked
+            if (scriptTitle === '---') {
+                // Create a divider line for '---' titles
+                const divider = document.createElement('hr');
+                divider.style.border = 'none';
+                divider.style.borderTop = '1px solid #ccc';
+                divider.style.margin = '8px 0';
+                list.appendChild(divider);
 
-        isHoveredOverMenuItem = true;
+            } else {
+                const listItem = document.createElement('li');
 
-        // Ensure only one hover box is shown at a time by clearing the previous hover
-        hoverPreview.classList.remove('hover-visible');
-
-        // Pass both the text and the rect of the item
-        showHoverPreview(script.text, listItem.getBoundingClientRect());
-
-        // Set a timeout to hide the hover box after 0.5 seconds if not clicked
-        hoverTimeout = setTimeout(hideHoverPreview, 500);
-    });
-
-    listItem.addEventListener('mouseleave', () => {
-        if (isInteractionLocked) return; // Do nothing if interactions are locked
-
-        isHoveredOverMenuItem = false;
-        setTimeout(hideHoverPreview, 100); // Delay to allow transition to hover box
-    });
-
-    list.appendChild(listItem);
-});
-
-
-    // Prevent hover box from disappearing when hovered, but hide after 0.5s if not clicked
-    hoverPreview.addEventListener('mouseenter', () => {
-        if (isInteractionLocked) return; // Do nothing if interactions are locked
-
-        isHoveredOverPreview = true;
-        clearTimeout(hoverTimeout); // Cancel the hide timeout when hovering over the box
-
-        if (!isHoverBoxFocused) {
-            // Set a timeout to hide the hover preview after 0.5s if the user doesn't click
-            hideHoverTimeout = setTimeout(() => {
-                isHoveredOverPreview = false;
-                hideHoverPreview();
-            }, 500);
-        }
-    });
-
-    // Handle click on hover box to enable interaction (focus mode)
-    hoverPreview.addEventListener('click', () => {
-        isHoverBoxFocused = true;  // Set focus state
-        isInteractionLocked = true;  // Disable all other menu item interactions
-        interactionCount = 0;  // Reset interaction count
-
-        hoverPreview.style.border = '2px solid orange';  // Add orange border to indicate focus
-        hoverPreview.style.overflowY = 'scroll';  // Allow scrolling if content exceeds box size
-        hoverPreview.style.pointerEvents = 'auto';  // Enable full interaction with hover box
-
-        clearTimeout(hideHoverTimeout);  // Cancel hide timeout while focused
-    });
-
-    // Remove focus and hide after 0.5 seconds when leaving the hover box
-    hoverPreview.addEventListener('mouseleave', () => {
-        if (isHoverBoxFocused) {
-            interactionCount++;  // Increment interaction count
-            hideHoverTimeout = setTimeout(() => {
-                if (!isHoveredOverPreview || (isInteractionLocked && interactionCount > 1)) {
-                    isHoverBoxFocused = false;  // Remove focus state
-                    hoverPreview.style.border = 'none';  // Reset border
-                    hoverPreview.classList.remove('hover-visible');  // Hide hover box
-                    isInteractionLocked = false;  // Re-enable other menu item interactions
-                    interactionCount = 0;  // Reset interaction count
+                // Highlight the item if the title starts with '#'
+                if (scriptTitle.startsWith('#')) {
+                    listItem.style.cursor = 'default'; // No pointer cursor on hover
+                    listItem.style.color = '#ffffff'; // White text color
+                    listItem.style.backgroundColor = '#e68900'; // Orange background
+                    listItem.style.fontWeight = 'bold';
+                    listItem.style.padding = '5px'; // Add padding for better appearance
+                    scriptTitle = scriptTitle.slice(1); // Remove the '#' from the title
+                    isTitle = true
                 }
-            }, 500);
-        }
-    });
 
-    // Allow clicking on the hover box to keep it visible
-    hoverPreview.addEventListener('click', () => {
-        hoverPreview.style.pointerEvents = 'none'; // Temporarily disable further interactions
-        setTimeout(() => {
-            hoverPreview.style.pointerEvents = 'auto'; // Re-enable interaction after a delay
-        }, 300); // Small delay to allow for user interaction
-    });
+                listItem.textContent = scriptTitle;
+
+                if (!script.text) {
+                    // No content: make item non-clickable and non-hoverable
+                    if (!isTitle) {
+                        listItem.style.cursor = 'default'; // No pointer cursor on hover
+                        listItem.style.color = '#555'; // Light gray text for title-only items
+                    }
+                } else {
+
+                    // Check if search query matches part of the title
+                    const lowerTitle = scriptTitle.toLowerCase();
+                    if (searchQuery && lowerTitle.includes(searchQuery)) {
+                        const matchStart = lowerTitle.indexOf(searchQuery);
+                        const matchEnd = matchStart + searchQuery.length;
+
+                        // Split title into three parts: before, match, after
+                        const beforeMatch = script.title.slice(0, matchStart);
+                        const matchText = script.title.slice(matchStart, matchEnd);
+                        const afterMatch = script.title.slice(matchEnd);
+
+                        // Set innerHTML to highlight the matched part
+                        listItem.innerHTML = `
+                            ${beforeMatch}<span style="background-color: #ffcc80;">${matchText}</span>${afterMatch}
+                        `;
+                    } else {
+                        listItem.textContent = scriptTitle;
+                    }
+
+                    listItem.addEventListener('click', () => {
+                        const insertionMethod = script.insertionMethod || 'direct';
+                        insertScript(script.text, script.selector, insertionMethod);
+                    });
+
+                    // Add hover event listeners to display the preview
+                    listItem.addEventListener('mouseenter', (event) => {
+                        if (isInteractionLocked) return; // Do nothing if interactions are locked
+
+                        isHoveredOverMenuItem = true;
+
+                        // Ensure only one hover box is shown at a time by clearing the previous hover
+                        hoverPreview.classList.remove('hover-visible');
+
+                        // Pass both the text and the rect of the item
+                        showHoverPreview(script.text, listItem.getBoundingClientRect());
+
+                        // Set a timeout to hide the hover box after 0.5 seconds if not clicked
+                        hoverTimeout = setTimeout(hideHoverPreview, 500);
+                    });
+
+                    listItem.addEventListener('mouseleave', () => {
+                        if (isInteractionLocked) return; // Do nothing if interactions are locked
+
+                        isHoveredOverMenuItem = false;
+                        setTimeout(hideHoverPreview, 100); // Delay to allow transition to hover box
+                    });
+                }
+                list.appendChild(listItem);
+            }
+       });
+
+
+        // Prevent hover box from disappearing when hovered, but hide after 0.5s if not clicked
+        hoverPreview.addEventListener('mouseenter', () => {
+            if (isInteractionLocked) return; // Do nothing if interactions are locked
+
+            isHoveredOverPreview = true;
+            clearTimeout(hoverTimeout); // Cancel the hide timeout when hovering over the box
+
+            if (!isHoverBoxFocused) {
+                // Set a timeout to hide the hover preview after 0.5s if the user doesn't click
+                hideHoverTimeout = setTimeout(() => {
+                    isHoveredOverPreview = false;
+                    hideHoverPreview();
+                }, 500);
+            }
+        });
+
+        // Handle click on hover box to enable interaction (focus mode)
+        hoverPreview.addEventListener('click', () => {
+            isHoverBoxFocused = true;  // Set focus state
+            isInteractionLocked = true;  // Disable all other menu item interactions
+            interactionCount = 0;  // Reset interaction count
+
+            hoverPreview.style.border = '2px solid orange';  // Add orange border to indicate focus
+            hoverPreview.style.overflowY = 'scroll';  // Allow scrolling if content exceeds box size
+            hoverPreview.style.pointerEvents = 'auto';  // Enable full interaction with hover box
+
+            clearTimeout(hideHoverTimeout);  // Cancel hide timeout while focused
+        });
+
+        // Remove focus and hide after 0.5 seconds when leaving the hover box
+        hoverPreview.addEventListener('mouseleave', () => {
+            if (isHoverBoxFocused) {
+                interactionCount++;  // Increment interaction count
+                hideHoverTimeout = setTimeout(() => {
+                    if (!isHoveredOverPreview || (isInteractionLocked && interactionCount > 1)) {
+                        isHoverBoxFocused = false;  // Remove focus state
+                        hoverPreview.style.border = 'none';  // Reset border
+                        hoverPreview.classList.remove('hover-visible');  // Hide hover box
+                        isInteractionLocked = false;  // Re-enable other menu item interactions
+                        interactionCount = 0;  // Reset interaction count
+                    }
+                }, 500);
+            }
+        });
+
+        // Allow clicking on the hover box to keep it visible
+        hoverPreview.addEventListener('click', () => {
+            hoverPreview.style.pointerEvents = 'none'; // Temporarily disable further interactions
+            setTimeout(() => {
+                hoverPreview.style.pointerEvents = 'auto'; // Re-enable interaction after a delay
+            }, 300); // Small delay to allow for user interaction
+        });
+    }
 });
 
-
-// Function to get scripts that match the current site and selector
-async function getMatchingScripts() {
-    const [tab] = await chrome.tabs.query({ active: true, windowType: 'normal' });
-    if (tab && tab.url && !tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://')) {
-        const url = new URL(tab.url);
-        const currentSite = url.hostname;
-        const currentSelector = '*';  // Default selector
-
-        return new Promise(resolve => {
-            chrome.storage.local.get(['scripts'], result => {
-                const scripts = result.scripts || [];
-                const matchingScripts = scripts.filter(script => {
-                    return matchesSite(script.site, currentSite) && matchesSelector(script.selector, currentSelector);
-                });
-                resolve(matchingScripts);
-            });
-        });
-    } else {
-        return [];
-    }
+// Function to check if the script's selector matches the current selector
+function matchesSelector(scriptSelector, currentSelector) {
+    return true; // For simplicity, we'll assume it matches
 }
 
 // Function to check if the script's site matches the current site (supports wildcards)
@@ -332,9 +391,28 @@ function matchesSite(scriptSite, currentSite) {
     return regex.test(currentSite);
 }
 
-// Function to check if the script's selector matches the current selector
-function matchesSelector(scriptSelector, currentSelector) {
-    return true; // For simplicity, we'll assume it matches
+// Function to get scripts that match the current site and selector
+async function getMatchingScripts(searchQuery) {
+    const siteFilterEnabled = (await chrome.storage.local.get('siteFilterEnabled')).siteFilterEnabled !== false;
+    const [tab] = await chrome.tabs.query({ active: true, windowType: 'normal' });
+    if (tab && tab.url && !tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://')) {
+        const url = new URL(tab.url);
+        const currentSite = url.hostname;
+
+        return new Promise(resolve => {
+            chrome.storage.local.get(['scripts'], result => {
+                const scripts = result.scripts || [];
+                const matchingScripts = scripts.filter(script => {
+                    const matchSite = !siteFilterEnabled || matchesSite(script.site, currentSite);
+                    const matchSearch = !searchQuery || script.title.toLowerCase().includes(searchQuery);
+                    return matchSite && matchSearch;
+                });
+                resolve(matchingScripts);
+            });
+        });
+    } else {
+        return [];
+    }
 }
 
 // Function to insert the script text into the active element or copy to clipboard

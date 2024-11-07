@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <style>
     /* Container for the main popup, including buttons */
     body {
@@ -88,6 +89,23 @@
       background: #e68900;
       margin: 10px 0;
     }
+
+    #site-filter-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    #site-filter {
+      margin-right: 5px;
+    }
+
+    #search-box {
+      margin-left: auto;
+      padding: 4px;
+      font-size: 14px;
+      width: 140px;
+    }
   </style>
 </head>
 
@@ -96,6 +114,11 @@
   <button id="edit-button">Edit All</button>
   <button id="settings-button">Settings</button>
   <hr>
+  <div id="site-filter-container">
+    <input type="checkbox" id="site-filter" checked>
+    <label for="site-filter">Site Filter</label>
+    <input type="text" id="search-box" placeholder="Search..." />
+  </div>
   <ul id="script-list"></ul>
 
   <script src="popup.js"></script>
