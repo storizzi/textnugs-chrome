@@ -4,13 +4,29 @@
 <head>
   <meta charset="UTF-8">
   <style>
-    /* Container for the main popup, including buttons */
+    /* Main Container Styling */
     body {
       background-color: #fff7e6;
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 10px;
       width: 300px;
+      display: flex;
+      flex-direction: column;
+      height: 400px; /* Adjust as needed */
+      box-sizing: border-box;
+    }
+
+    /* Top Section */
+    .top-section {
+      flex-shrink: 0;
+    }
+
+    /* Scrollable Section */
+    .scrollable {
+      overflow-y: auto;
+      flex-grow: 1;
+      margin-top: 8px;
     }
 
     button {
@@ -110,16 +126,23 @@
 </head>
 
 <body>
-  <button id="add-button">Add...</button>
-  <button id="edit-button">Edit All</button>
-  <button id="settings-button">Settings</button>
-  <hr>
-  <div id="site-filter-container">
-    <input type="checkbox" id="site-filter" checked>
-    <label for="site-filter">Site Filter</label>
-    <input type="text" id="search-box" placeholder="Search..." />
+  <!-- Top Section with Buttons and Filter -->
+  <div class="top-section">
+    <button id="add-button">Add...</button>
+    <button id="edit-button">Edit All</button>
+    <button id="settings-button">Settings</button>
+    <hr>
+    <div id="site-filter-container">
+      <input type="checkbox" id="site-filter" checked>
+      <label for="site-filter">Site Filter</label>
+      <input type="text" id="search-box" placeholder="Search..." />
+    </div>
   </div>
-  <ul id="script-list"></ul>
+
+  <!-- Scrollable List Section -->
+  <div class="scrollable">
+    <ul id="script-list"></ul>
+  </div>
 
   <script src="popup.js"></script>
 </body>
