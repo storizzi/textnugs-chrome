@@ -232,7 +232,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Load and display scripts
     async function displayScripts() {
         const searchQuery = searchBox.value.toLowerCase().trim();
-        const scripts = await getMatchingScripts(searchQuery);
+        const siteFilterEnabled = (await chrome.storage.local.get('siteFilterEnabled')).siteFilterEnabled !== false;
+        const scripts = await getMatchingScripts(searchQuery, siteFilterEnabled);
         
         list.innerHTML = ''
         scripts.forEach(script => {
@@ -392,27 +393,42 @@ function matchesSite(scriptSite, currentSite) {
 }
 
 // Function to get scripts that match the current site and selector
-async function getMatchingScripts(searchQuery) {
-    const siteFilterEnabled = (await chrome.storage.local.get('siteFilterEnabled')).siteFilterEnabled !== false;
-    const [tab] = await chrome.tabs.query({ active: true, windowType: 'normal' });
-    if (tab && tab.url && !tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://')) {
-        const url = new URL(tab.url);
-        const currentSite = url.hostname;
+async function getMatchingScripts(searchQuery, siteFilterEnabled) {
+    console.log('Site filter enabled', siteFilterEnabled)
+    console.log('Search query', searchQuery)
+    let currentSite = '';
 
-        return new Promise(resolve => {
-            chrome.storage.local.get(['scripts'], result => {
-                const scripts = result.scripts || [];
-                const matchingScripts = scripts.filter(script => {
-                    const matchSite = !siteFilterEnabled || matchesSite(script.site, currentSite);
-                    const matchSearch = !searchQuery || script.title.toLowerCase().includes(searchQuery);
-                    return matchSite && matchSearch;
-                });
-                resolve(matchingScripts);
-            });
-        });
-    } else {
-        return [];
+    if (siteFilterEnabled) {
+        // Only try to retrieve currentSite if siteFilterEnabled is true
+        const [tab] = await chrome.tabs.query({ active: true, windowType: 'normal' });
+        
+        if (tab && tab.url && !tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://')) {
+            const url = new URL(tab.url);
+            currentSite = url.hostname;
+        } else {
+            // If we can't get a valid site, we can't filter by site
+            currentSite = '';
+        }
     }
+
+    console.log('x')
+
+    // Retrieve scripts and filter based on site and search query
+    return new Promise(resolve => {
+        console.log('y')
+        chrome.storage.local.get(['scripts'], result => {
+            console.log('z')
+            const scripts = result.scripts || [];
+            const matchingScripts = scripts.filter(script => {
+                const matchSite = !siteFilterEnabled || matchesSite(script.site, currentSite);
+                const matchSearch = !searchQuery || script.title.toLowerCase().includes(searchQuery);
+                console.log('matchSite', matchSite)
+                console.log('matchSearch', matchSearch)
+                return matchSite && matchSearch;
+            });
+            resolve(matchingScripts);
+        });
+    });
 }
 
 // Function to insert the script text into the active element or copy to clipboard
