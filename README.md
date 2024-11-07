@@ -31,15 +31,31 @@
 - **Clone Scripts**: Easily duplicate existing scripts to create variations without starting from scratch.
 - **Dynamic Clipboard Insertion**: Use `{{clipboard}}` in your scripts to insert the current clipboard content dynamically in context.
 - **Quick Access**: Access your scripts directly from the extension popup and insert them into web pages.
+- **Enhanced Main Popup**:
+  - Site Filter toggle to enable/disable site-specific filtering (enabled by default)
+  - Search box for quick script finding with highlighted matches
+  - Visual dividers (`---`) and section headers (`#` titles) for better organization
+- **Add New Scripts**: Save scripts with a title, optional site, optional selector, and choose the insertion method
+- **Edit and Manage Scripts**: 
+  - View, edit, clone, or delete all your saved scripts in one place
+  - Drag-and-drop reordering in the Edit popup
+- **Clone Scripts**: Easily duplicate existing scripts to create variations without starting from scratch
+- **Dynamic Clipboard Insertion**: Use `{{clipboard}}` in your scripts to insert the current clipboard content dynamically in context
+- **Quick Access**: Access your scripts directly from the extension popup and insert them into web pages
 - **Insertion Methods**:
-  - **Direct Insertion**: Attempts to insert the script directly at the cursor position in the active element or the element specified when setting up the script.
-  - **Copy to Clipboard**: Copies the script to the clipboard for manual pasting.
+  - **Direct Insertion**: Attempts to insert the script directly at the cursor position in the active element or the element specified when setting up the script
+  - **Copy to Clipboard**: Copies the script to the clipboard for manual pasting
 - **Backup, Restore, and Import**:
-  - **Backup**: Save all your scripts and settings to a JSON file for safekeeping.
-  - **Restore**: Replace all current scripts with a previous backup.
-  - **Import**: Merge scripts from a backup into your current set.
-  - **Clear All Scripts**: Remove all stored scripts (useful for GDPR compliance).
-  - **Restore / Import from File or URL** - You can either specify a local file on your computer, or you can specify a URL if you or someone else have put a collection of snippets on an internet site somewhere that is accessible to your browser. Exercise caution and ensure you trust the source of the file to make sure someone does not provide a malicious file.
+  - **Backup**: Save all your scripts and settings to a JSON file for safekeeping
+  - **Restore**: Replace all current scripts with a previous backup
+  - **Import**: Merge scripts from a backup into your current set
+  - **Clear All Scripts**: Remove all stored scripts (useful for GDPR compliance)
+  - **Restore / Import from File or URL**: Import from local files or specify a URL for remote collections
+  - **Sample Collections**: Choose from preset sample collections in the dropdown menu
+- **Settings Interface**:
+  - Organized in three tabs: Import/Export, Statistics, and About
+  - About section includes version info, description, and support links
+- Automatic display of GitHub release page on plugin updates
 - Clickable popover for menu items so you can use snippets for quick references, or quickly copy bits of the snippet
 
 ## Installation
@@ -76,7 +92,13 @@
    - **Script Text**: Enter the script or text snippet you want to save.
 4. **Save the Script**: Click **Add** to save the script.
 
-### Editing and Cloning Scripts
+### Main Popup Features
+
+- **Site Filter**: Toggle the "Site Filter" checkbox to enable/disable site-specific filtering (enabled by default)
+- **Search**: Use the search box to quickly find scripts by title, with matching text highlighted
+- **Organization**: Scripts can be separated using visual dividers (`---`) and section headers (titles starting with `#`)
+
+### Editing and Managing Scripts
 
 1. **Open the Extension**: Click on the TextNugs icon.
 2. **Edit All Scripts**: Click the **Edit All** button to open the **Edit All Scripts** dialog.
@@ -84,11 +106,13 @@
    - Click on a script title to expand and edit its details.
    - Make changes to the title, site, selector, insertion method, or script text.
    - Reset the site or selector to a * for 'any' with the star button, or set to the currently selected page / selected text editor field's selector with the refresh button.
-4. **Clone Scripts**:
+4. **Reorder Scripts**:
+   - Use drag-and-drop to reposition scripts in your preferred order
+5. **Clone Scripts**:
    - Click the **Clone** button next to a script to create a duplicate.
    - A cloned script will appear with the same details, which you can then modify as needed.
-5. **Delete Scripts**: Click the **Delete** button within a script to remove it.
-6. **Save Changes**: Click **Update** to save all modifications.
+6. **Delete Scripts**: Click the **Delete** button within a script to remove it.
+7. **Save Changes**: Click **Update** to save all modifications.
 
 ### Inserting Scripts into Web Pages
 
@@ -108,17 +132,41 @@
 
 ## Backup, Restore, and Import
 
-### Backup
+### Settings Interface
+
+The settings popup now features a tabbed interface for better organization:
+
+#### Import/Export Tab
+- Access all backup and restore functionality
+- Import from local files or URLs
+- Preset sample collection options
+
+#### Statistics Tab
+- Number of scripts stored
+- Storage space usage
+- Available space remaining
+- Approximate scripts capacity
+
+#### About Tab
+- Application version
+- Description
+- Links to GitHub repository
+- Chrome Web Store link
+- Support information
+
+### Backup, Restore, and Import
+
+#### Backup
 
 The **Backup** feature allows you to save all your scripts and settings to a JSON file for safekeeping. You can use this to create backups, share scripts between devices or colleagues, or store different collections of scripts for various use cases.
 
-- Click the **Backup** button to download a file named `paste-hoarder-<timestamp>.json`.
-- Alternatively, type A URL from which you can download a set of snippets / scripts - make sure you trust this source. E.g. some sample collections in the repository are:
+- Click the **Backup** button to download a file named `textnugs-<timestamp>.json`
+- Alternatively, type a URL from which you can download a set of snippets / scripts - make sure you trust this source. E.g. some sample collections in the repository are:
   - `https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/javascript-snippets.json`
   - `https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/llm-snippets.json`
-- The file contains metadata, settings, and all stored scripts.
+- The file contains metadata, settings, and all stored scripts
 
-### Restore
+#### Restore
 
 The **Restore** feature replaces all existing scripts with the ones from a backup file. This is useful when you want to restore a previous backup or move scripts between devices.
 
@@ -139,19 +187,35 @@ There are samples in the plugin directory under the 'samples' folder that can be
 - `javascript-snippets.json` - Example JavaScript snippets
 - `llm-snippets.json` - Example LLM prompt snippets
 
-### Clear All Scripts
+You can also use the drop-down and import directly from the github repo five sample collections.
 
-The **Clear All Scripts** feature removes all stored scripts from your browser. This is useful for GDPR compliance or when you want to reset the extension. After clearing, you can import or restore scripts from a backup.
-
-- Click **Clear All Scripts** to delete all scripts.
-- A confirmation dialog will appear to confirm the action.
-
-### Use Cases
+#### Use Cases
 
 - **Backup for Safekeeping**: Regularly back up your scripts to ensure you don’t lose important snippets.
 - **Share with Friends/Colleagues**: Export your snippets and share the JSON file with others for collaboration.
 - **Transfer Between Devices**: Use backups to transfer scripts between different devices or browsers.
 - **Different Collections**: Store different types of scripts (e.g., development, communication) in separate backups to switch between them as needed.
+
+#### Import Options
+
+- **Local File**:
+  - Click **Choose File** to select a backup JSON file
+  - Click **Import** to merge the scripts from the file into your current set
+- **URL Import**:
+  - Enter a URL to import snippets directly from the web
+  - Select from preset sample collections in the dropdown menu
+  - Ensure you trust the source of the URL before importing
+
+### Clear All Scripts
+
+- Click **Choose File** to select a backup JSON file
+- Click **Restore** to replace all existing scripts with those from the file
+- A confirmation dialog will appear before proceeding to prevent accidental replacement
+
+The **Clear All Scripts** feature removes all stored scripts from your browser. This is useful for GDPR compliance or when you want to reset the extension. After clearing, you can import or restore scripts from a backup.
+
+- Click **Clear All Scripts** to delete all scripts.
+- - A confirmation dialog will appear to confirm the action.
 
 ## Statistics Section
 
@@ -164,6 +228,14 @@ At the bottom of the settings page, a **Statistics** section displays the follow
 ### Scrollable Settings Popup
 
 If the statistics section is not visible on smaller screens, you can scroll down within the settings popup to view the full content. The settings popup is designed to be fully scrollable.
+
+## Automatic Update Information
+
+When the plugin is updated, TextNugs will automatically display the GitHub release page, keeping you informed about:
+- New features and improvements
+- Bug fixes
+- Version changes
+- Link back to the main help pages for more detailed instructions
 
 ## Dynamic Clipboard Insertion with `{{clipboard}}`
 
@@ -310,6 +382,7 @@ The **Selector** field allows you to specify a CSS selector to target a specific
 - **Fallback to Clipboard**: If direct insertion doesn't work on a particular site, consider using the copy to clipboard method.
 - **Utilize Cloning**: Clone scripts to create new versions without re-entering all details.
 - **Leverage `{{clipboard}}`**: Use the clipboard placeholder to insert dynamic content.
+- If you want to organize your scripts into sections then use `---` as a title to divide scripts and this will be shown as a horizontal line. To make an item clearer to see (e.g. to act as a section title) prefix a title with # to indicate a heading. The # won't be displayed. See sample provided collections for an example of this - these have a divider and a heading added to make it easy to see where one collection ends and another starts.
 
 ## Troubleshooting
 
