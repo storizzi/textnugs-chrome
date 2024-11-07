@@ -29,6 +29,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlInput = document.getElementById('import-url');
     const dropdownArrow = document.getElementById('dropdown-arrow');
     const dropdownOptions = document.getElementById('dropdown-options');
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetTab = button.getAttribute('data-tab');
+            // Activate selected tab
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            // Show target content and hide others
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === targetTab) content.classList.add('active');
+            });
+        });
+    });
+
+    // Populate About section with manifest info
+    const manifest = chrome.runtime.getManifest();
+    document.getElementById('app-name').textContent = manifest.name;
+    document.getElementById('app-version').textContent = manifest.version;
+    document.getElementById('app-description').textContent = manifest.description;
   
     // Toggle dropdown visibility when clicking the arrow only
     dropdownArrow.addEventListener('click', (event) => {
@@ -41,6 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (event.target.classList.contains('dropdown-option')) {
         urlInput.value = event.target.getAttribute('data-url');
         dropdownOptions.style.display = 'none';
+
+        // Manually trigger the input event to enable buttons
+        urlInput.dispatchEvent(new Event('input'));
       }
     });
   
@@ -87,7 +112,7 @@ document.getElementById('backup-button').addEventListener('click', () => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `paste-hoarder-${timestamp}.json`;
+        a.download = `textnugs-${timestamp}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

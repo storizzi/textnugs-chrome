@@ -49,7 +49,6 @@
 
     /* Button Container Styling */
     .button-container {
-      margin-top: 10px;
       text-align: right;
     }
 
@@ -57,7 +56,6 @@
     .file-picker-section {
       border: 1px solid #ffcc80;
       border-radius: 8px;
-      padding: 20px;
       margin-top: 20px;
       background-color: #fff2e0;
     }
@@ -70,7 +68,6 @@
 
     /* Divider Styling */
     .divider {
-      margin-top: 20px;
       border: 1px solid #ffcc80;
     }
 
@@ -133,62 +130,157 @@
     #dropdown-options .dropdown-option:hover {
       background-color: #f0f0f0;
     }
+
+    /* Tab Button Styles */
+    .tab-buttons {
+      display: flex;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .tab-button {
+      flex: 1;
+      text-align: center;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 16px;
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      border-bottom: 2px solid #e0e0e0;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .tab-button:hover {
+      background-color: #e68900;
+    }
+
+    /* Active Tab Style */
+    .tab-button.active {
+      background-color: #e68900;
+      border-bottom: 2px solid #fff7e6;
+      box-shadow: none;
+    }
+
+    /* Hide all tab content sections initially */
+    .tab-content {
+      display: none;
+    }
+
+    /* Show active tab content section */
+    .tab-content.active {
+      display: block;
+    }
+
+    /* About Section Styling */
+    .about-section p, .statistics-section p {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+
+    /* Link styling */
+    .about-section a {
+      color: #e68900;
+      text-decoration: none;
+    }
+
+    .about-section a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <!-- Main Header -->
   <h1>Settings</h1>
 
-  <!-- Main Buttons for Backup and Clear Scripts -->
-  <div class="button-container">
-    <button id="backup-button">Backup</button>
-    <button id="clear-scripts-button">Clear All Scripts</button>
-  </div>
+    <!-- Tab Buttons -->
+    <div class="tab-buttons">
+      <button class="tab-button active" data-tab="import-export">Import/Export</button>
+      <button class="tab-button" data-tab="statistics">Statistics</button>
+      <button class="tab-button" data-tab="about">About</button>
+    </div>
 
-  <!-- File Picker Section for Import/Restore -->
-   
-  <!-- URL Input Section -->
-  <div class="file-picker-section">
+
+  <!-- Tab Content Sections -->
+  
+  <!-- Import/Export Section -->
+  <div id="import-export" class="tab-content active">
     <h2 class="section-heading">Import / Restore</h2>
-    
-    <label for="import-url">Import from URL:</label>
-    <div id="url-container">
-      <!-- Input field for URL entry -->
-      <input type="text" id="import-url" placeholder="Enter URL here or select a sample">
-      
-      <!-- Dropdown arrow as a visible span -->
-      <span id="dropdown-arrow">▼</span>
-    
-      <!-- Dropdown options list (initially hidden) -->
-      <div id="dropdown-options">
-        <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/javascript-snippets.json">JavaScript Snippets (common code snippets)</div>
-        <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/llm-snippets.json">LLM Snippets (templates for large language models)</div>
-        <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/communication-snippets.json">Communication Templates (emails, social media)</div>
-        <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/dad-jokes.json">Dad Jokes (for humor)</div>
-        <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/olde-english-expressions.json">Old English Expressions (expressions of surprise and disdain)</div>
-      </div>
-    </div>    
-
-    <!-- Existing file input -->
-    <input type="file" id="import-file" accept=".json">
-    
+    <!-- Main Buttons for Backup and Clear Scripts -->
     <div class="button-container">
-      <button id="restore-button" disabled>Restore</button>
-      <button id="import-button" disabled>Import</button>
+      <button id="backup-button">Backup</button>
+      <button id="clear-scripts-button">Clear All Scripts</button>
+    </div>
+
+    <!-- File Picker Section for Import/Restore -->
+    
+    <!-- URL Input Section -->
+    <div class="file-picker-section">
+      <h2 class="section-heading">Import / Restore</h2>
+      
+      <label for="import-url">Import from URL:</label>
+      <div id="url-container">
+        <!-- Input field for URL entry -->
+        <input type="text" id="import-url" placeholder="Enter URL here or select a sample">
+        
+        <!-- Dropdown arrow as a visible span -->
+        <span id="dropdown-arrow">▼</span>
+      
+        <!-- Dropdown options list (initially hidden) -->
+        <div id="dropdown-options">
+          <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/javascript-snippets.json">JavaScript Snippets (common code snippets)</div>
+          <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/llm-snippets.json">LLM Snippets (templates for large language models)</div>
+          <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/communication-snippets.json">Communication Templates (emails, social media)</div>
+          <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/dad-jokes.json">Dad Jokes (for humor)</div>
+          <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/olde-english-expressions.json">Old English Expressions (expressions of surprise and disdain)</div>
+        </div>
+      </div>    
+
+      <!-- Existing file input -->
+      <input type="file" id="import-file" accept=".json">
+      
+      <div class="button-container">
+        <button id="restore-button" disabled>Restore</button>
+        <button id="import-button" disabled>Import</button>
+      </div>
     </div>
   </div>
 
-  <!-- Divider -->
-  <hr class="divider">
-
   <!-- Statistics Section -->
-  <h2 class="section-heading">Statistics</h2>
-  <div id="stats">
+  <div id="statistics" class="tab-content">
+    <h2 class="section-heading">Statistics</h2>
     <p><strong>Number of Scripts:</strong> <span id="script-count">0</span></p>
     <p><strong>Size of Scripts Storage:</strong> <span id="storage-size">0 KB</span></p>
     <p><strong>Space Left:</strong> <span id="space-left">0 KB</span></p>
     <p><strong>Approximate Scripts Remaining:</strong> <span id="scripts-remaining">0</span></p>
   </div>
+
+  <!-- About Section -->
+  <div id="about" class="tab-content about-section">
+    <h2 class="section-heading">About</h2>
+    
+    <!-- Application Information Section -->
+    <p><strong>Application:</strong> <span id="app-name"></span></p>
+    <p><strong>Version:</strong> <span id="app-version"></span></p>
+    <p><strong>Description:</strong> <span id="app-description"></span></p>
+    <hr>
+
+    <!-- Copyright Information -->
+    <p>&copy; Copyright 2024 Simon Huggins of Storizzi - All rights reserved</p>
+    <hr>
+
+    <!-- Links Section as Bullet Points -->
+    <ul>
+      <li><a href="https://github.com/storizzi/textnugs-chrome" target="_blank">See the original code and accompany in help on GitHub</a></li>
+      <li><a href="https://chromewebstore.google.com/detail/textnugs/fdfipmagdmfcaceopnodphpkjfpihiee" target="_blank">View on Chrome Store</a></li>
+    </ul>
+    <hr>
+
+    <!-- Acknowledgment Section -->
+    <p>Including a little help from the <a href="https://github.com/SortableJS/Sortable" target="_blank">Sortable.js Drag & Drop Library</a> - Thanks!</p>
+  </div>
+
 
   <!-- Confirmation Dialog -->
   <div id="confirmation-dialog" style="display:none;">
