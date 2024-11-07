@@ -1,0 +1,112 @@
+{
+    "metadata": {
+      "browser_type": "Google Chrome",
+      "browser_version": "129",
+      "date_exported": "2024-11-07T09:07:00.000Z",
+      "app": {
+        "name": "TextNugs",
+        "version": "1.0",
+        "description": "Store and insert communication templates.",
+        "permissions": [
+          "activeTab",
+          "scripting",
+          "storage",
+          "tabs",
+          "clipboardRead",
+          "clipboardWrite",
+          "contextMenus"
+        ],
+        "host_permissions": [
+          "<all_urls>"
+        ]
+      }
+    },
+    "settings": {},
+    "scripts": [
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "",
+        "title": "---"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "",
+        "title": "#Communication Snippets"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "gmail.com",
+        "text": "Hello {{clipboard}},\n\nI hope this email finds you well.\n\nBest regards,\n{{your_name}}",
+        "title": "Generic Greeting Email"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "linkedin.com",
+        "text": "Hi {{clipboard}},\n\nI came across your profile and found your experience very inspiring. I'd love to connect and learn more about your work.\n\nBest,\n{{your_name}}",
+        "title": "LinkedIn Connection Request"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "reddit.com",
+        "text": "I appreciate your perspective, {{clipboard}}, but have you considered this alternate view?",
+        "title": "Polite Discussion Response"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "quora.com",
+        "text": "Thank you for the question, {{clipboard}}! Here's my take on it...",
+        "title": "Answer Introduction on Quora"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "slack.com",
+        "text": "Hey team, just a quick reminder that the deadline for {{clipboard}} is approaching on {{date}}. Let’s keep the momentum going!",
+        "title": "Slack Project Reminder"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "teams.microsoft.com",
+        "text": "Hi everyone,\n\nPlease find attached the latest version of the report. Let me know if you have any feedback.\n\nThanks,\n{{your_name}}",
+        "title": "Microsoft Teams File Sharing"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "gmail.com",
+        "text": "Hi {{clipboard}},\n\nThank you for reaching out. I'll review your message and get back to you by {{date}}.\n\nBest regards,\n{{your_name}}",
+        "title": "Acknowledgment Email"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "twitter.com",
+        "text": "{{clipboard}} Thanks for the insights! Looking forward to seeing more updates from you.",
+        "title": "Twitter Response"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "facebook.com",
+        "text": "Thank you for sharing this, {{clipboard}}! I completely agree and appreciate your perspective.",
+        "title": "Facebook Comment Response"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "whatsapp.com",
+        "text": "Hey {{clipboard}}, just a reminder about our meeting on {{date}} at {{time}}. Let me know if you need any details.",
+        "title": "WhatsApp Meeting Reminder"
+      }
+    ]
+  }
+  

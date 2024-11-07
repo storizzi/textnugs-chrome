@@ -4,7 +4,7 @@
     "browser_version": "129",
     "date_exported": "2024-10-11T15:20:45.072Z",
     "app": {
-      "name": "Paste Hoarder",
+      "name": "TextNugs",
       "version": "1.0",
       "description": "Store and insert commonly used scripts.",
       "permissions": [
@@ -23,6 +23,20 @@
   },
   "settings": {},
   "scripts": [
+    {
+      "insertionMethod": "clipboard",
+      "selector": "*",
+      "site": "*",
+      "text": "",
+      "title": "---"
+    },
+    {
+      "insertionMethod": "clipboard",
+      "selector": "*",
+      "site": "*",
+      "text": "",
+      "title": "#LLM (Large Language Model) Snippets"
+    },
     {
       "insertionMethod": "clipboard",
       "selector": "div#prompt-textarea",

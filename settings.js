@@ -25,6 +25,34 @@ importUrlInput.addEventListener('input', (event) => {
     importButton.disabled = !isUrlValid && !importFileInput.files[0];
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const urlInput = document.getElementById('import-url');
+    const dropdownArrow = document.getElementById('dropdown-arrow');
+    const dropdownOptions = document.getElementById('dropdown-options');
+  
+    // Toggle dropdown visibility when clicking the arrow only
+    dropdownArrow.addEventListener('click', (event) => {
+      event.stopPropagation(); // Prevent the click from propagating to the document
+      dropdownOptions.style.display = dropdownOptions.style.display === 'none' ? 'block' : 'none';
+    });
+  
+    // Populate input with the selected URL and hide the dropdown
+    dropdownOptions.addEventListener('click', (event) => {
+      if (event.target.classList.contains('dropdown-option')) {
+        urlInput.value = event.target.getAttribute('data-url');
+        dropdownOptions.style.display = 'none';
+      }
+    });
+  
+    // Hide dropdown if clicking outside
+    document.addEventListener('click', (event) => {
+      if (!dropdownOptions.contains(event.target) && event.target !== dropdownArrow) {
+        dropdownOptions.style.display = 'none';
+      }
+    });
+  });
+  
+
 // Backup functionality - Exports current scripts to a JSON file
 document.getElementById('backup-button').addEventListener('click', () => {
     chrome.storage.local.get(['scripts'], (result) => {

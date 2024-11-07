@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <style>
     body {
       background-color: #fff7e6;
@@ -84,6 +85,54 @@
       background-color: #ccc;
       cursor: not-allowed;
     }
+
+    /* Container styling */
+    #url-container {
+      position: relative;
+      width: 100%; /* Full width of its parent container */
+      max-width: 600px; /* Optional: Set a maximum width for the container */
+      margin-bottom: 10px;
+    }
+
+    /* Input field styling */
+    #url-container input[type="text"] {
+      width: 100%;
+      padding: 8px 30px 8px 10px; /* Add left and right padding to match spacing */
+      box-sizing: border-box;
+    }
+
+    /* Arrow styling */
+    #dropdown-arrow {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 1.2em;
+      color: #555;
+    }
+
+    /* Dropdown options styling */
+    #dropdown-options {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      display: none;
+      z-index: 1000;
+    }
+
+    #dropdown-options .dropdown-option {
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    #dropdown-options .dropdown-option:hover {
+      background-color: #f0f0f0;
+    }
   </style>
 </head>
 <body>
@@ -102,10 +151,24 @@
   <div class="file-picker-section">
     <h2 class="section-heading">Import / Restore</h2>
     
-    <!-- New URL Input -->
     <label for="import-url">Import from URL:</label>
-    <input type="text" id="import-url" placeholder="Enter URL here" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+    <div id="url-container">
+      <!-- Input field for URL entry -->
+      <input type="text" id="import-url" placeholder="Enter URL here or select a sample">
+      
+      <!-- Dropdown arrow as a visible span -->
+      <span id="dropdown-arrow">▼</span>
     
+      <!-- Dropdown options list (initially hidden) -->
+      <div id="dropdown-options">
+        <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/javascript-snippets.json">JavaScript Snippets (common code snippets)</div>
+        <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/llm-snippets.json">LLM Snippets (templates for large language models)</div>
+        <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/communication-snippets.json">Communication Templates (emails, social media)</div>
+        <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/dad-jokes.json">Dad Jokes (for humor)</div>
+        <div class="dropdown-option" data-url="https://raw.githubusercontent.com/storizzi/textnugs-chrome/refs/heads/main/samples/olde-english-expressions.json">Old English Expressions (expressions of surprise and disdain)</div>
+      </div>
+    </div>    
+
     <!-- Existing file input -->
     <input type="file" id="import-file" accept=".json">
     

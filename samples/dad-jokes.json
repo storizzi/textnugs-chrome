@@ -1,0 +1,175 @@
+{
+    "metadata": {
+      "browser_type": "Google Chrome",
+      "browser_version": "129",
+      "date_exported": "2024-11-07T09:07:00.000Z",
+      "app": {
+        "name": "TextNugs",
+        "version": "1.0",
+        "description": "Store and insert dad jokes.",
+        "permissions": [
+          "activeTab",
+          "scripting",
+          "storage",
+          "tabs",
+          "clipboardRead",
+          "clipboardWrite",
+          "contextMenus"
+        ],
+        "host_permissions": [
+          "<all_urls>"
+        ]
+      }
+    },
+    "settings": {},
+    "scripts": [
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "",
+        "title": "---"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "",
+        "title": "#Dad Jokes"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Why did the scarecrow win an award? Because he was outstanding in his field!",
+        "title": "Scarecrow Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "I only know 25 letters of the alphabet. I don’t know y.",
+        "title": "Alphabet Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "How does a penguin build its house? Igloos it together!",
+        "title": "Penguin Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Why don't skeletons fight each other? They don't have the guts.",
+        "title": "Skeleton Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "What do you call fake spaghetti? An impasta!",
+        "title": "Spaghetti Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "I would tell you a construction joke, but I’m still working on it.",
+        "title": "Construction Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Why did the bicycle fall over? It was two-tired.",
+        "title": "Bicycle Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "I'm reading a book on anti-gravity. It's impossible to put down!",
+        "title": "Anti-Gravity Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Want to hear a joke about paper? Never mind, it's tearable.",
+        "title": "Paper Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "What’s orange and sounds like a parrot? A carrot.",
+        "title": "Parrot Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "What do you call a can opener that doesn't work? A can't opener.",
+        "title": "Can Opener Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Why did the math book look sad? Because it had too many problems.",
+        "title": "Math Book Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "I'm on a seafood diet. I see food and I eat it.",
+        "title": "Seafood Diet Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "How does a lawyer say goodbye? I'll be suing ya!",
+        "title": "Lawyer Goodbye Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "What did one wall say to the other wall? I'll meet you at the corner.",
+        "title": "Wall Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "How do you organize a space party? You planet.",
+        "title": "Space Party Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Why did the tomato turn red? Because it saw the salad dressing!",
+        "title": "Tomato Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Why did the coffee file a police report? It got mugged.",
+        "title": "Coffee Joke"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "What did the grape do when it got stepped on? Nothing but let out a little wine.",
+        "title": "Grape Joke"
+      }
+    ]
+  }
+  

@@ -1,0 +1,182 @@
+{
+    "metadata": {
+      "browser_type": "Google Chrome",
+      "browser_version": "129",
+      "date_exported": "2024-11-07T09:07:00.000Z",
+      "app": {
+        "name": "TextNugs",
+        "version": "1.0",
+        "description": "Store and insert old English expressions.",
+        "permissions": [
+          "activeTab",
+          "scripting",
+          "storage",
+          "tabs",
+          "clipboardRead",
+          "clipboardWrite",
+          "contextMenus"
+        ],
+        "host_permissions": [
+          "<all_urls>"
+        ]
+      }
+    },
+    "settings": {},
+    "scripts": [
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "",
+        "title": "---"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "",
+        "title": "#Olde English Quirky Snippets"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Good heavens! Thou hath befuddled me once again!",
+        "title": "Expression of Surprise"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Prithee, spare me thy malodorous musings!",
+        "title": "Expression of Disdain"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Forsooth! A stroke of joy hath graced my heart!",
+        "title": "Expression of Joy"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Egad! What devilry is this that assails mine eyes?",
+        "title": "Expression of Shock"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Verily, I am most vexed by thy tomfoolery!",
+        "title": "Expression of Annoyance"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Hark! Methinks fortune doth favor me this day.",
+        "title": "Expression of Good Fortune"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Behold! A most wondrous sight unfolds before mine eyes.",
+        "title": "Expression of Awe"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Alas, I am undone by mine own folly!",
+        "title": "Expression of Regret"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Lo and behold! A marvel to behold indeed!",
+        "title": "Expression of Amazement"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Fie upon thee and thy knavish deeds!",
+        "title": "Expression of Disapproval"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "What manner of sorcery is this, called '{{clipboard}}'? Surely, it is the work of a cunning enchanter!",
+        "title": "Expression of Technological Befuddlement"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Alas, {{clipboard}}, thou art as confounding as a maze within a labyrinth!",
+        "title": "Expression of Confusion with a Person"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Egad! Is this wondrous creation known as '{{clipboard}}' a gift from the heavens or a trap set by mischievous spirits?",
+        "title": "Expression of Mixed Awe and Skepticism"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Be it known, {{clipboard}}, thou art as baffling as the riddles of old!",
+        "title": "Expression of Bafflement at a Person or Concept"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Methinks '{{clipboard}}' is but a phantom of the mind, for such things cannot truly exist!",
+        "title": "Expression of Denial about a Technology or Concept"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Ah, {{clipboard}}, thy presence doth bring forth great mirth and merriment!",
+        "title": "Expression of Joy upon Mentioning Someone"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "In sooth, {{clipboard}}, thou art as mysterious as the shadows at twilight!",
+        "title": "Expression of Mystery"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Hark! What strange contraption is this '{{clipboard}}'? Surely, it is the stuff of legends!",
+        "title": "Expression of Surprise at Technology"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Prithee, {{clipboard}}, dost thou mock me with thy perplexing nature?",
+        "title": "Expression of Perplexity at a Concept or Person"
+      },
+      {
+        "insertionMethod": "clipboard",
+        "selector": "*",
+        "site": "*",
+        "text": "Lo! I am truly flummoxed by '{{clipboard}}'! Such marvels surely lie beyond mortal understanding.",
+        "title": "Expression of Awe and Confusion"
+      }
+    ]
+  }
+  
