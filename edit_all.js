@@ -25,12 +25,73 @@ document.addEventListener('DOMContentLoaded', () => {
         scriptsData.forEach((script, index) => {
             const scriptItem = document.createElement('div');
             scriptItem.classList.add('script-item');
+            scriptItem.setAttribute('data-id', index); // Unique identifier for ordering
+        
+            const scriptTitleContainer = document.createElement('div');
+            scriptTitleContainer.classList.add('script-title-container');
+            scriptTitleContainer.style.display = 'flex';
+            scriptTitleContainer.style.alignItems = 'center';
+        
+            // Toggle arrow
+            const toggleArrow = document.createElement('span');
+            toggleArrow.textContent = '▶';
+            toggleArrow.style.cursor = 'pointer';
+            toggleArrow.style.marginRight = '8px';
+            
+            // Toggle arrow click to show/hide content
+            toggleArrow.addEventListener('click', () => {
+              if (scriptItem.classList.contains('open')) {
+                toggleArrow.textContent = '▶';
+                scriptItem.classList.remove('open');
+              } else {
+                toggleArrow.textContent = '▼';
+                scriptItem.classList.add('open');
+              }
+            });
 
             const scriptTitle = document.createElement('h3');
             scriptTitle.textContent = script.title || 'Untitled Script';
-            scriptTitle.addEventListener('click', () => {
-                scriptItem.classList.toggle('open');
+            scriptTitle.classList.add('script-title');
+            scriptTitle.style.flexGrow = '1';
+
+            // Handle mousedown event to detect drag
+            scriptTitle.addEventListener('mousedown', (event) => {
+                isDragging = false;
+                
+                // Set a timeout to determine if the user is starting a drag
+                dragTimeout = setTimeout(() => {
+                isDragging = true;
+                scriptItem.classList.remove('open'); // Close the section when starting drag
+                scriptItem.setAttribute('draggable', 'true'); // Enable dragging
+                }, 150); // Adjust delay as needed
             });
+
+            // Handle mouseup to toggle open/close only if it was a click, not a drag
+            scriptTitle.addEventListener('mouseup', (event) => {
+                clearTimeout(dragTimeout); // Clear the drag detection timeout
+
+                if (!isDragging) {
+                // If it wasn't a drag, toggle the section open/close
+                scriptItem.classList.toggle('open');
+                }
+                
+                isDragging = false; // Reset dragging state
+                scriptItem.setAttribute('draggable', 'false'); // Disable dragging
+            });
+
+            // Handle dragstart event to prevent section from opening
+            scriptItem.addEventListener('dragstart', (event) => {
+                isDragging = true;
+            });
+
+            scriptItem.addEventListener('dragend', (event) => {
+                isDragging = false;
+                scriptItem.setAttribute('draggable', 'false'); // Disable dragging after drag ends
+            });
+
+            scriptTitleContainer.appendChild(toggleArrow);
+            scriptTitleContainer.appendChild(scriptTitle);
+            scriptItem.appendChild(scriptTitleContainer);
 
             const scriptContent = document.createElement('div');
             scriptContent.classList.add('script-content');
@@ -164,7 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
             scriptContent.appendChild(scriptTextArea);
             scriptContent.appendChild(buttonsContainer);
 
-            scriptItem.appendChild(scriptTitle);
             scriptItem.appendChild(scriptContent);
 
             // Store references for updating
@@ -178,7 +238,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
             scriptListContainer.appendChild(scriptItem);
         });
+        initializeSortable();
     }
+
+    function initializeSortable() {
+        new Sortable(scriptListContainer, {
+          animation: 150,
+          handle: 'h3', // Only the title (h3) is draggable
+          onStart: (evt) => {
+            const scriptItem = evt.item;
+      
+            // Close the section if it's open and store the open state
+            if (scriptItem.classList.contains('open')) {
+              scriptItem.classList.remove('open');
+              scriptItem.setAttribute('data-was-open', 'true');
+            }
+            
+            // Make sure dragging doesn't open the section on mousedown
+            scriptItem.setAttribute('draggable', 'true');
+          },
+          onEnd: (evt) => {
+            const scriptItem = evt.item;
+      
+            // Restore open state if it was open before dragging
+            if (scriptItem.getAttribute('data-was-open') === 'true') {
+              scriptItem.classList.add('open');
+              scriptItem.removeAttribute('data-was-open');
+            }
+      
+            // Update the script order after dragging
+            updateScriptOrder();
+          }
+        });
+      }      
+
+      function updateScriptOrder() {
+        const reorderedScripts = [];
+        const scriptItems = document.querySelectorAll('.script-item');
+      
+        scriptItems.forEach((item) => {
+          const index = item.getAttribute('data-id');
+          reorderedScripts.push(scriptsData[index]);
+        });
+      
+        scriptsData = reorderedScripts;
+      
+        // Save updated order to storage
+        chrome.storage.local.set({ scripts: scriptsData }, () => {
+          console.log('Scripts reordered and saved to storage.');
+        });
+      }      
 
     // Global Update and Cancel button event listeners
     document.getElementById('update-button').addEventListener('click', () => {

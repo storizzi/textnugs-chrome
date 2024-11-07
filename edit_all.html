@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <style>
     body {
       background-color: #fff7e6;
@@ -29,6 +30,8 @@
       margin-bottom: 10px;
       border: 1px solid #ffcc80;
       border-radius: 4px;
+      display: flex;
+      flex-direction: column; /* Add this line */
     }
     .script-item h3 {
       margin: 0;
@@ -148,7 +151,33 @@
       margin-top: 20px;
       text-align: right;
     }
+
+    /* Flexbox for arrow and title */
+    .title-container {
+        display: flex;
+        align-items: center;
+    }
+
+    /* Arrow styling */
+    .arrow {
+        margin-right: 8px;
+        cursor: pointer;
+        font-size: 1.2em;
+        color: #e68900;
+    }
+
+    /* Make the title inline-flex to allow arrow alignment */
+    .script-title {
+      font-size: 1.2em;
+      color: #e68900;
+      cursor: pointer;
+      display: inline-flex; /* Inline and flexible */
+      align-items: center; /* Center-align with the arrow */
+      gap: 8px; /* Space between arrow and title */
+    }
+
   </style>
+  <script src="lib/Sortable.min.js"></script>
 </head>
 <body>
   <div class="container">
