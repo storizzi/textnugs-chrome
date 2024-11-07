@@ -5,7 +5,9 @@ Release Date: 7 Nov 2024
 
 ## Enhanced Main Popup
 
-- **Site Filter & Search**: Added a "Site Filter" checkbox to toggle site-specific filtering on or off (enabled by default). You can also use the new search box to quickly find scripts by title, with matching text highlighted for easy identification.
+- **Site Filter & Search**: Added a "Site Filter" checkbox to toggle site-specific filtering on or off (enabled by default).
+  - You can also use the new search box to quickly find scripts by title, with matching text highlighted for easy identification.
+  - When site filtering is turned off, you can be on a non-site page (e.g. chrome plugin or 'new tab' and items will now be visible)
 - **Organized Script List**: Visual dividers (`---`) and section headers (titles starting with `#`) help you separate and organize groups of scripts more clearly.
 
 ## Improved Script Management in Edit Popup
