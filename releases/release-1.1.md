@@ -1,7 +1,10 @@
 # TextNugs Release 1.1
 
+**👈👈👈 [Return to main README](../README.md) | [Return to Release Page](./RELEASE.md)**
+
 <img src="../img/textnugs.png" alt="TextNugs" width="200px" height="200px">
-Release Date: 7 Nov 2024
+
+**Release Date:** 9 Nov 2024
 
 ## Enhanced Main Popup
 
@@ -13,6 +16,7 @@ Release Date: 7 Nov 2024
 ## Improved Script Management in Edit Popup
 
 - **Drag-and-Drop Reordering**: Reorder your scripts intuitively with drag-and-drop functionality, making it simpler to organize scripts just the way you want.
+- **Update** button on individual items - updated but unsaved items are indicated with a red box now until you click 'Update' or 'Update All' at the bottom of the page. Warning when closing editor without saving changes, or trying to drag & drop with outstanding changes (as drag & drop saves changes immediately).
 
 ## Redesigned Settings Popup with New "About" Section
 

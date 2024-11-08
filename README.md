@@ -10,16 +10,44 @@
 <table>
   <tr>
     <td width="25%">
+      <img src="./img/textnugs-screenshot-main-popup.png" alt="Main Popup Screenshot" width="200px">
+    </td>
+    <td width="25%">
       <img src="./img/textnugs-add-screenshot.png" alt="Add Screenshot" width="200px">
     </td>
     <td width="25%">
-      <img src="./img/textnugs-hover-screenshot.png" alt="Hover Screenshot" width="200px">
+      <img src="./img/textnugs-screenshot-hover-click.png" alt="Hover-Click Screenshot" width="200px">
     </td>
     <td width="25%">
-      <img src="./img/textnugs-edit-screenshot.png" alt="Edit screenshot" width="200px">
+      <img src="./img/textnugs-screenshot-edit.png" alt="Edit screenshot" width="200px">
     </td>
-        <td width="25%">
-      <img src="./img/textnugs-settings-screenshot.png" alt="Settings Screenshot" width="200px">
+  </tr>
+  <tr>
+    <td width="25%">
+      <img src="./img/textnugs-screenshot-add-insertion-methods.png" alt="Insertion Methods Screenshot" width="200px">
+    </td>
+    <td width="25%">
+      <img src="./img/textnugs-screenshot-search.png" alt="Snippet Search Screenshot" width="200px">
+    </td>
+    <td width="25%">
+      <img src="./img/textnugs-screenshot-edit-drag-and-drop.png" alt="Drag &amp; Drop during Edit Screenshot" width="200px">
+    </td>
+    <td width="25%">
+      <img src="./img/textnugs-screenshot-settings.png" alt="Settings Screenshot" width="200px">
+    </td>
+  </tr>
+  <tr>
+    <td width="25%">
+      <img src="./img/textnugs-screenshot-settings-import-samples.png" alt="Import From Sample URL Screenshot" width="200px">
+    </td>
+    <td width="25%">
+      <img src="./img/textnugs-screenshot-settings-import-file.png" alt="Import from File Screenshot" width="200px">
+    </td>
+    <td width="25%">
+      <img src="./img/textnugs-screenshot-settings-statistics.png" alt="Settings Statistics Screenshot" width="200px">
+    </td>
+    <td width="25%">
+      <img src="./img/textnugs-screenshot-settings-about.png" alt="Setting About Section Screenshot" width="200px">
     </td>
   </tr>
 </table>
@@ -39,6 +67,7 @@
 - **Edit and Manage Scripts**: 
   - View, edit, clone, or delete all your saved scripts in one place
   - Drag-and-drop reordering in the Edit popup
+  - Each script can be updated individually or saved in bulk with the "Update All" option. Scripts with unsaved changes are visually indicated with a red border.
 - **Clone Scripts**: Easily duplicate existing scripts to create variations without starting from scratch
 - **Dynamic Clipboard Insertion**: Use `{{clipboard}}` in your scripts to insert the current clipboard content dynamically in context
 - **Quick Access**: Access your scripts directly from the extension popup and insert them into web pages
@@ -98,21 +127,25 @@
 - **Search**: Use the search box to quickly find scripts by title, with matching text highlighted
 - **Organization**: Scripts can be separated using visual dividers (`---`) and section headers (titles starting with `#`)
 
-### Editing and Managing Scripts
+## Editing and Managing Scripts
 
 1. **Open the Extension**: Click on the TextNugs icon.
 2. **Edit All Scripts**: Click the **Edit All** button to open the **Edit All Scripts** dialog.
 3. **Modify Scripts**:
    - Click on a script title to expand and edit its details.
    - Make changes to the title, site, selector, insertion method, or script text.
-   - Reset the site or selector to a * for 'any' with the star button, or set to the currently selected page / selected text editor field's selector with the refresh button.
-4. **Reorder Scripts**:
-   - Use drag-and-drop to reposition scripts in your preferred order
-5. **Clone Scripts**:
+   - Reset the site or selector to a * for 'any' with the star button, or set to the currently selected page/selected text editor field's selector with the refresh button.
+4. **Update Individual Scripts**:
+   - Each script has an **Update** button to save changes to that specific script.
+   - When a script is modified, it shows a red border to indicate unsaved changes. After clicking **Update**, the border is removed, confirming that the changes have been saved.
+5. **Update All Scripts**:
+   - Use the **Update All** button to save changes for all scripts at once. This clears the red border on all modified scripts, indicating that all changes are saved.
+6. **Reorder Scripts**:
+   - Use drag-and-drop to reposition scripts in your preferred order.
+7. **Clone Scripts**:
    - Click the **Clone** button next to a script to create a duplicate.
    - A cloned script will appear with the same details, which you can then modify as needed.
-6. **Delete Scripts**: Click the **Delete** button within a script to remove it.
-7. **Save Changes**: Click **Update** to save all modifications.
+8. **Delete Scripts**: Click the **Delete** button within a script to remove it.
 
 ### Inserting Scripts into Web Pages
 
@@ -219,15 +252,11 @@ The **Clear All Scripts** feature removes all stored scripts from your browser. 
 
 ## Statistics Section
 
-At the bottom of the settings page, a **Statistics** section displays the following information:
+In the 'Statistics' tab on the Settings page, a **Statistics** section displays the following information:
 - **Number of Scripts**: The total number of scripts stored.
 - **Size of Scripts Storage**: The amount of storage space used by the scripts.
 - **Space Left**: How much space remains in the Chrome extension storage.
 - **Approximate Scripts Remaining**: An estimate of how many more scripts you can store based on the average script size.
-
-### Scrollable Settings Popup
-
-If the statistics section is not visible on smaller screens, you can scroll down within the settings popup to view the full content. The settings popup is designed to be fully scrollable.
 
 ## Automatic Update Information
 

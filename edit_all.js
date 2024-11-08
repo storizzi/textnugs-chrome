@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let scriptsData = [];
     let currentHostname = '*';  // Default value
     let currentSelector = '*';  // Default value
+    let hasUnsavedChanges = false; // Track if there are unsaved changes
 
     // Retrieve stored hostname and selector from popup.js
     chrome.storage.local.get(['editDialogData'], result => {
@@ -103,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
             titleInput.type = 'text';
             titleInput.value = script.title;
             titleInput.required = true;
+            titleInput.addEventListener('input', () => markAsUpdated(scriptItem));
 
             // Site field with star button and refresh button
             const siteLabel = document.createElement('label');
@@ -120,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             siteStarButton.innerHTML = '&#9733;';
             siteStarButton.addEventListener('click', () => {
                 siteInput.value = '*';
+                markAsUpdated(scriptItem)
             });
 
             const siteRefreshButton = document.createElement('button');
@@ -128,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
             siteRefreshButton.innerHTML = '&#x1F504;'; // Correct HTML entity for the refresh symbol
             siteRefreshButton.addEventListener('click', () => {
                 siteInput.value = currentHostname;  // Use stored hostname from popup.js
+                markAsUpdated(scriptItem)
             });
 
             siteInputGroup.appendChild(siteInput);
@@ -143,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const selectorInput = document.createElement('input');
             selectorInput.type = 'text';
             selectorInput.value = script.selector;
+            selectorInput.addEventListener('change', () => markAsUpdated(scriptItem));
 
             const selectorStarButton = document.createElement('button');
             selectorStarButton.type = 'button';
@@ -150,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             selectorStarButton.innerHTML = '&#9733;';
             selectorStarButton.addEventListener('click', () => {
                 selectorInput.value = '*';
+                markAsUpdated(scriptItem)
             });
 
             const selectorRefreshButton = document.createElement('button');
@@ -158,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             selectorRefreshButton.innerHTML = '&#x1F504;'; // Correct HTML entity for the refresh symbol
             selectorRefreshButton.addEventListener('click', () => {
                 selectorInput.value = currentSelector;  // Use stored selector from popup.js
+                markAsUpdated(scriptItem)
             });
 
             selectorInputGroup.appendChild(selectorInput);
@@ -177,6 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
             insertionMethodSelect.appendChild(directOption);
             insertionMethodSelect.appendChild(clipboardOption);
             insertionMethodSelect.value = script.insertionMethod || 'direct';
+            insertionMethodSelect.addEventListener('change', () => markAsUpdated(scriptItem));
 
             // Script Text field
             const scriptTextLabel = document.createElement('label');
@@ -184,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const scriptTextArea = document.createElement('textarea');
             scriptTextArea.rows = 5;
             scriptTextArea.value = script.text;
+            scriptTextArea.addEventListener('input', () => markAsUpdated(scriptItem));
 
             // Buttons container (for Clone and Delete)
             const buttonsContainer = document.createElement('div');
@@ -209,8 +218,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 displayScripts();  // Refresh the display
             });
 
+            // Update button
+            const updateButton = document.createElement('button');
+            updateButton.textContent = 'Update';
+            updateButton.style.backgroundColor = '#4CAF50';
+            updateButton.addEventListener('click', () => {
+                script.title = titleInput.value;
+                script.site = siteInput.value || '*';
+                script.selector = selectorInput.value || '*';
+                script.insertionMethod = insertionMethodSelect.value || 'direct';
+                script.text = scriptTextArea.value;
+
+                chrome.storage.local.set({ scripts: scriptsData }, () => {
+                    alert('Script updated successfully.');
+                    markAsSaved(scriptItem);
+                });
+            });
+
             buttonsContainer.appendChild(deleteButton);
             buttonsContainer.appendChild(cloneButton);
+            buttonsContainer.appendChild(updateButton);
 
             // Append fields to scriptContent
             scriptContent.appendChild(titleLabel);
@@ -241,74 +268,126 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeSortable();
     }
 
-    function initializeSortable() {
-        new Sortable(scriptListContainer, {
-          animation: 150,
-          handle: 'h3', // Only the title (h3) is draggable
-          onStart: (evt) => {
+    // Function to add a thick red border to mark item as updated
+    function markAsUpdated(scriptItem) {
+      if (!scriptItem.classList.contains('updated')) {
+          scriptItem.classList.add('updated');
+          scriptItem.style.border = '3px solid red';
+          hasUnsavedChanges = true;
+      }
+  }
+
+  // Function to remove red border after update
+  function markAsSaved(scriptItem) {
+      scriptItem.classList.remove('updated');
+      scriptItem.style.border = '1px solid #ffcc80';
+      hasUnsavedChanges = Array.from(document.querySelectorAll('.script-item.updated')).length > 0;
+  }
+
+  // Warn user if trying to close with unsaved changes
+  window.addEventListener('beforeunload', (event) => {
+      if (hasUnsavedChanges) {
+          event.preventDefault();
+          event.returnValue = ''; // Necessary for displaying the prompt
+      }
+  });
+
+  function initializeSortable() {
+    new Sortable(scriptListContainer, {
+        animation: 150,
+        handle: 'h3', // Only the title (h3) is draggable
+        onStart: (evt) => {
             const scriptItem = evt.item;
-      
+
+            // Check for unsaved changes before allowing drag
+            const hasUnsavedChanges = Array.from(document.querySelectorAll('.script-item.updated')).length > 0;
+
+            if (hasUnsavedChanges) {
+                // Show warning to the user
+                const confirmSave = confirm('Moving an item will save all changes immediately. Do you want to proceed?');
+                if (!confirmSave) {
+                    // Cancel the drag if user doesn't confirm
+                    evt.preventDefault();
+                    evt.stopImmediatePropagation();
+                    return;
+                } else {
+                    // If confirmed, save all changes and clear indicators
+                    saveAllScriptsAndClearIndicators();
+                }
+            }
+
             // Close the section if it's open and store the open state
             if (scriptItem.classList.contains('open')) {
-              scriptItem.classList.remove('open');
-              scriptItem.setAttribute('data-was-open', 'true');
+                scriptItem.classList.remove('open');
+                scriptItem.setAttribute('data-was-open', 'true');
             }
             
-            // Make sure dragging doesn't open the section on mousedown
             scriptItem.setAttribute('draggable', 'true');
-          },
-          onEnd: (evt) => {
+        },
+        onEnd: (evt) => {
             const scriptItem = evt.item;
-      
+
             // Restore open state if it was open before dragging
             if (scriptItem.getAttribute('data-was-open') === 'true') {
-              scriptItem.classList.add('open');
-              scriptItem.removeAttribute('data-was-open');
+                scriptItem.classList.add('open');
+                scriptItem.removeAttribute('data-was-open');
             }
-      
-            // Update the script order after dragging
+
+            // Update the script order after dragging if there are no unsaved changes
             updateScriptOrder();
-          }
-        });
-      }      
+        }
+    });
+  }
 
-      function updateScriptOrder() {
-        const reorderedScripts = [];
-        const scriptItems = document.querySelectorAll('.script-item');
-      
-        scriptItems.forEach((item) => {
-          const index = item.getAttribute('data-id');
-          reorderedScripts.push(scriptsData[index]);
-        });
-      
-        scriptsData = reorderedScripts;
-      
-        // Save updated order to storage
-        chrome.storage.local.set({ scripts: scriptsData }, () => {
-          console.log('Scripts reordered and saved to storage.');
-        });
-      }      
+  function updateScriptOrder() {
+    const reorderedScripts = [];
+    const scriptItems = document.querySelectorAll('.script-item');
+  
+    scriptItems.forEach((item) => {
+      const index = item.getAttribute('data-id');
+      reorderedScripts.push(scriptsData[index]);
+    });
+  
+    scriptsData = reorderedScripts;
+  
+    // Save updated order to storage
+    chrome.storage.local.set({ scripts: scriptsData }, () => {
+      console.log('Scripts reordered and saved to storage.');
+    });
+  }
 
-    // Global Update and Cancel button event listeners
-    document.getElementById('update-button').addEventListener('click', () => {
-        // Collect updated data
-        scriptsData.forEach(script => {
-            const { titleInput, siteInput, selectorInput, insertionMethodSelect, scriptTextArea } = script._elements;
-            script.title = titleInput.value;
-            script.site = siteInput.value || '*';
-            script.selector = selectorInput.value || '*';
-            script.insertionMethod = insertionMethodSelect.value || 'direct';
-            script.text = scriptTextArea.value;
+  function saveAllScriptsAndClearIndicators() {
+    // Count elements with the 'updated' class
+    const updatedElements = document.querySelectorAll('.script-item.updated');
+    const updatedCount = updatedElements.length;
+
+    // Save all scripts to storage
+    chrome.storage.local.set({ scripts: scriptsData }, () => {
+        // Clear red borders and indicators on all items
+        updatedElements.forEach(scriptItem => {
+            markAsSaved(scriptItem);
         });
 
-        // Save updated scripts to storage
-        chrome.storage.local.set({ scripts: scriptsData }, () => {
-            alert('Scripts updated successfully.');
-            window.close();
-        });
+        // Show alert with the count of updated elements
+        alert(`${updatedCount} script${updatedCount === 1 ? '' : 's'} updated successfully.`);
+    });
+  }  
+
+  // Global Update and Cancel button event listeners
+  document.getElementById('update-button').addEventListener('click', () => {
+    // Loop through each script and apply changes from _elements if any changes are pending
+    scriptsData.forEach(script => {
+        const { titleInput, siteInput, selectorInput, insertionMethodSelect, scriptTextArea } = script._elements;
+        script.title = titleInput.value;
+        script.site = siteInput.value || '*';
+        script.selector = selectorInput.value || '*';
+        script.insertionMethod = insertionMethodSelect.value || 'direct';
+        script.text = scriptTextArea.value;
     });
 
-    document.getElementById('cancel-button').addEventListener('click', () => {
-        window.close();
+    // Save all scripts at once to storage
+    chrome.storage.local.set({ scripts: scriptsData }, () => {
+        saveAllScriptsAndClearIndicators();
     });
+  });
 });
