@@ -1,0 +1,27 @@
+{
+    "name": "TextNugs",
+    "shortname": "TextNugs",
+    "releaseDate": "2024-11-08",
+    "version": "1.1",
+    "zipdist": {
+        "include": [
+            "icons",
+            "lib",
+            "samples",
+            ".gitignore",
+            "add_dialog.html",
+            "add_dialog.js",
+            "background.js",
+            "edit_all.html",
+            "edit_all.js",
+            "manifest.json",
+            "popup.html",
+            "popup.js",
+            "README.md",
+            "settings_popup.html",
+            "settings.js"
+        ],
+        "exclude": [],
+        "filename": "dist/{shortname}-{version}.zip"
+    }
+}
