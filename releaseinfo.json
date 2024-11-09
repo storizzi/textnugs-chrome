@@ -7,8 +7,6 @@
         "include": [
             "icons",
             "lib",
-            "samples",
-            ".gitignore",
             "add_dialog.html",
             "add_dialog.js",
             "background.js",
