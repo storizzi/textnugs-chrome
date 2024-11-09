@@ -4,7 +4,7 @@
 
 <img src="../img/textnugs.png" alt="TextNugs" width="200px" height="200px">
 
-**Release Date:** 9 Nov 2024
+**Release Date:** 8 Nov 2024
 
 ## Enhanced Main Popup
 
